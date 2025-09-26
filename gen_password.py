@@ -20,12 +20,24 @@ def valid_length(length):
 
 if __name__ == "__main__":
     
-    parser = argparse.ArgumentParser(description="Generate a password for your convienience")
+    parser = argparse.ArgumentParser(
+        description="""
+        Generate a password for your convienience.
 
-    parser.add_argument("length", type=valid_length, help="Length of password")
+        Generate your secure password of 8 characters simply by running: python gen_password.py
+        
+        Examples:
+            python gen_password.py --length 12
+        """,
+        formatter_class=argparse.RawTextHelpFormatter
+    )
 
-    args = parser.parse_args()
-    print(args.length)
+    parser.add_argument(
+        "--length", 
+        type=valid_length,
+        default=8, 
+        help="Length of password"
+    )
 
     try:
         generate_password(parser.parse_args().length)
