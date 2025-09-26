@@ -2,9 +2,11 @@ import secrets
 import string
 import argparse
 
-def generate_password(length):
-    alphabet = string.ascii_letters + string.digits
-    password = "".join(secrets.choice(alphabet) for _ in range(length))
+def generate_password(length, use_symbols=False):
+    characters = string.ascii_letters + string.digits
+    if use_symbols:
+        characters += string.punctuation
+    password = "".join(secrets.choice(characters) for _ in range(length))
     print(f"Password: {password}")
 
 def valid_length(length):
@@ -33,13 +35,20 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--length", 
+        "--length", "-l",
         type=valid_length,
         default=8, 
         help="Length of password"
     )
+    parser.add_argument(
+        "--symbols", "-s",
+        action="store_true",
+        help="Include symbols on your password"
+    )
 
+    arguments = parser.parse_args()
+    print(arguments.symbols)
     try:
-        generate_password(parser.parse_args().length)
+        generate_password(arguments.length, arguments.symbols)
     except Exception as e:
         print("An exception has occured: " + e)
