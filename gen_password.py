@@ -29,7 +29,8 @@ if __name__ == "__main__":
         Generate your secure password of 8 characters simply by running: python gen_password.py
         
         Examples:
-            python gen_password.py --length 12
+            python gen_password.py --length 12 -l
+            python gen_password.py -- symbols -s
         """,
         formatter_class=argparse.RawTextHelpFormatter
     )
