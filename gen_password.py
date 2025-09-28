@@ -1,13 +1,5 @@
-import secrets
-import string
 import argparse
-
-def generate_password(length, use_symbols=False):
-    characters = string.ascii_letters + string.digits
-    if use_symbols:
-        characters += string.punctuation
-    password = "".join(secrets.choice(characters) for _ in range(length))
-    print(f"Password: {password}")
+from utils.password_generator import generate_password
 
 def valid_length(length):
     try:
