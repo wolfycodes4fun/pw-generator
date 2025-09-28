@@ -1,13 +1,6 @@
-import secrets
-import string
 import argparse
 
-def generate_password(length, use_symbols=False):
-    characters = string.ascii_letters + string.digits
-    if use_symbols:
-        characters += string.punctuation
-    password = "".join(secrets.choice(characters) for _ in range(length))
-    print(f"Password: {password}")
+from utils.password_generator import generate_password
 
 def valid_length(length):
     try:
@@ -29,7 +22,8 @@ if __name__ == "__main__":
         Generate your secure password of 8 characters simply by running: python gen_password.py
         
         Examples:
-            python gen_password.py --length 12
+            python gen_password.py --length 12 -l
+            python gen_password.py -- symbols -s
         """,
         formatter_class=argparse.RawTextHelpFormatter
     )
@@ -41,14 +35,26 @@ if __name__ == "__main__":
         help="Length of password"
     )
     parser.add_argument(
+        "--use-symbols", "-s",
+        action="store_true",
+        help="Include symbols on your password"
+    )
+
+    parser.add_argument(
+        "--use-numbers", "-n",
+        action="store_true",
+        help="Include numbers on your password"
+    )
+
+    arguments = parser.parse_args()
         "--symbols", "-s",
         action="store_true",
         help="Include symbols on your password"
     )
 
     arguments = parser.parse_args()
-    print(arguments.symbols)
+    
     try:
-        generate_password(arguments.length, arguments.symbols)
+        generate_password(arguments.length, arguments.use_numbers, arguments.use_symbols)
     except Exception as e:
         print("An exception has occured: " + e)
