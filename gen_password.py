@@ -34,14 +34,20 @@ if __name__ == "__main__":
         help="Length of password"
     )
     parser.add_argument(
-        "--symbols", "-s",
+        "--use-symbols", "-s",
         action="store_true",
         help="Include symbols on your password"
     )
 
+    parser.add_argument(
+        "--use-numbers", "-n",
+        action="store_true",
+        help="Include numbers on your password"
+    )
+
     arguments = parser.parse_args()
-    print(arguments.symbols)
+
     try:
-        generate_password(arguments.length, arguments.symbols)
+        generate_password(arguments.length, arguments.use_numbers, arguments.use_symbols)
     except Exception as e:
         print("An exception has occured: " + e)
