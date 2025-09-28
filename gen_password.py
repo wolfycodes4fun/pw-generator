@@ -1,4 +1,5 @@
 import argparse
+
 from utils.password_generator import generate_password
 
 def valid_length(length):
@@ -46,7 +47,13 @@ if __name__ == "__main__":
     )
 
     arguments = parser.parse_args()
+        "--symbols", "-s",
+        action="store_true",
+        help="Include symbols on your password"
+    )
 
+    arguments = parser.parse_args()
+    
     try:
         generate_password(arguments.length, arguments.use_numbers, arguments.use_symbols)
     except Exception as e:
